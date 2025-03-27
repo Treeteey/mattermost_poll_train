@@ -1,0 +1,43 @@
+{
+    "id": "com.mattermost.voting-bot",
+    "name": "Voting Bot",
+    "description": "Бот для создания и управления голосованиями в Mattermost",
+    "version": "1.0.0",
+    "min_server_version": "5.37.0",
+    "server": {
+        "executable": "server/dist/plugin.exe"
+    },
+    "settings_schema": {
+        "header": "Настройки бота для голосования",
+        "settings": [
+            {
+                "key": "TarantoolHost",
+                "display_name": "Хост Tarantool",
+                "type": "text",
+                "help_text": "Адрес сервера Tarantool",
+                "default": "localhost"
+            },
+            {
+                "key": "TarantoolPort",
+                "display_name": "Порт Tarantool",
+                "type": "text",
+                "help_text": "Порт сервера Tarantool",
+                "default": "3301"
+            },
+            {
+                "key": "TarantoolUser",
+                "display_name": "Пользователь Tarantool",
+                "type": "text",
+                "help_text": "Имя пользователя для подключения к Tarantool",
+                "default": "admin"
+            },
+            {
+                "key": "TarantoolPassword",
+                "display_name": "Пароль Tarantool",
+                "type": "password",
+                "help_text": "Пароль для подключения к Tarantool",
+                "default": "admin"
+            }
+        ]
+    }
+} 

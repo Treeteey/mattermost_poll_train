@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  mattermost:
+    image: mattermost/mattermost-preview:latest
+    ports:
+      - "8065:8065"
+    environment:
+      - MM_SQLSETTINGS_DRIVERNAME=postgres
+      - MM_SQLSETTINGS_DATASOURCE=postgres://mmuser:mmuser_password@db:5432/mattermost?sslmode=disable
+      - MM_PLUGINSETTINGS_ENABLE=true
+      - MM_PLUGINSETTINGS_ENABLEUPLOADS=true
+      - MM_LOGSETTINGS_CONSOLELEVEL=DEBUG
+    volumes:
+      - ./mattermost-data:/mattermost/data
+      - ./mattermost-config:/mattermost/config
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=mmuser
+      - POSTGRES_PASSWORD=mmuser_password
+      - POSTGRES_DB=mattermost
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  tarantool:
+    image: tarantool/tarantool:2.10
+    ports:
+      - "3301:3301"
+    volumes:
+      - ./tarantool-data:/var/lib/tarantool
+      - ./init.lua:/opt/tarantool/init.lua
+    environment:
+      - TARANTOOL_USER=admin
+      - TARANTOOL_PASSWORD=admin 
